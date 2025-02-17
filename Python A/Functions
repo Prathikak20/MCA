@@ -1,0 +1,39 @@
+
+#Write a menu driven program to perform basic arithmetic operations using functions
+def add(a,b):
+    return a+b
+def subtract(a,b):
+    return a-b
+def multiply(a,b):
+    return a*b
+def divide(a,b):
+    if b!=0:
+        return a/b
+    else:
+        return "Error!Division by zero"
+def menu():
+    while True:
+        print("\n--Arithmetic operation--")
+        print("\n1.Addition")
+        print("\n2.Subtraction")
+        print("\n3.Multiplication")
+        print("\n4.Division")
+        print("\n5.Exit")
+        choice=int(input("Enter your choice"))
+        if choice==5:
+            print("Exiting the pogram")
+            break
+        elif choice  in [1,2,3,4]:
+            num1=int(input("Enter first number"))
+            num2=int(input("Enter second  number"))
+            if choice==1:
+                print(f"Result:{add(num1,num2)}")
+            if choice==2:
+                print(f"Result:{subtract(num1,num2)}")
+            if choice==3:
+                print(f"Result:{multiply(num1,num2)}")
+            if choice==4:
+                print(f"Result:{divide(num1,num2)}")
+        else:
+                print("Invalid choice !please try again")
+menu()
