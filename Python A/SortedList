@@ -1,0 +1,13 @@
+#Write a python program that takes input from the user  for a list of student names and this corresponding scores.The program should then convert this data into a list of tuples,where each tuples contains  a students name and their score.The program should sort the list of tuples based on the scores in descending order and print the sorted list
+
+n=int(input("Enter the number of students"))
+students=[]
+for i in range(n):
+    name=input(f"Enter name of student{i+1}")
+    score=float(input(f"Enter score of student{i+1}"))
+    students.append((name,score))
+sorted_students=sorted(students,key=lambda x:x[1],reverse=True)
+print("\nSorted list of  students(name,score):")
+for student in sorted_students:
+    print(student)
+
