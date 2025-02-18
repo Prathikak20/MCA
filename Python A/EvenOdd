@@ -1,3 +1,6 @@
+#Write a python program  to find  even and odd numbers from a list ,append even to even list and od to odd list
+
+
 def seperate_even_odd(numbers):
     even_list=[]
     odd_list=[]
