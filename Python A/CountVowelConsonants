@@ -1,0 +1,22 @@
+#Write a python function to find the count of vowels,numbers and consonants for the given user input
+def count_vowels_number_consonants(text):
+    vowels="aeiouAEIOU"
+    num_vowels=0
+    num_number=0
+    num_consonants=0
+    for char in text:
+        if char.isdigit():
+            num_number+=1
+        elif char.isalpha():
+            if char in vowels:
+                
+                 num_vowels+=1
+            else:
+                 num_consonants+=1
+    return num_consonants,num_consonants,num_number
+user_input=input("Enter a string:")
+vowels,consonants,numbers= count_vowels_number_consonants(user_input)
+print(f"Vowels{vowels}")
+print(f"numbers{numbers}")
+print(f"consonants{consonants}")
+
