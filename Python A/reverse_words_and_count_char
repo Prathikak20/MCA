@@ -1,0 +1,11 @@
+#Write a program to reverse  the word in a sentence  and count the frequency of each character
+from collections import Counter
+def reverse_words_and_count_char(sentence):
+    words=sentence.split()
+    reversed_words=' '.join(word[::-1] for word in words)
+    char_frequency=Counter(sentence.replace(" "," "))
+    return reversed_words,char_frequency
+sentence=input("Enter a sentence")
+reversed_sentence,char_frequency=reverse_words_and_count_char(sentence)
+print(f"Reverse words in a sentence:{reversed_sentence}")
+print("characte frequency",dict(char_frequency))
