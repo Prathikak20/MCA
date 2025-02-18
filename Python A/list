@@ -1,0 +1,11 @@
+#Write a program to find all pairs of numbers a list that add up to  a target(ex  target value)
+def find_pairs_with_sum(numbers,target):
+    pairs=[]
+    for i in range(len(numbers)):
+        for j in range(i+1,len(numbers)):
+            pairs.append((numbers[i],numbers[j]))
+        return pairs
+numbers=[2,4,3,5,1,6,3]
+target=7
+pairs=find_pairs_with_sum(numbers,target)
+print(f"Pairs that add up to{target}:{pairs}")
