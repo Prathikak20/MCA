@@ -1,0 +1,15 @@
+
+Write a python program to perform  a linear search on a list of integers .Input the content of list
+
+def linear_search(lst,target):
+    for index,value in enumerate(lst):
+        if value==target:
+            return index
+    return -1
+lst=list(map(int,input("Enter numbers seperated by spaces:").split()))
+target=int(input("Enter the target value to search"))
+result=linear_search(lst,target)
+if result!=-1:
+    print(f"Target found at index{result}")
+else:
+    print(f"Target not found in the list")
