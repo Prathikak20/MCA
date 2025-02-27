@@ -1,0 +1,11 @@
+15.Write a python program that takes input from user for two list of integers and finds and prints the common 
+elements between them using set
+
+
+list1=input("Enter the first list of integers(seperated by spaces):").split()
+list1=[int(x) for x in list1]
+list2=input("Enter the second list of integers(seperated by spaces):").split()
+list2=[int(x) for x in list2]
+common=set(list1)&set(list2)
+print("common elements:",list(common))
+
