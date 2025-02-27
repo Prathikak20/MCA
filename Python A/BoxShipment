@@ -1,0 +1,35 @@
+write a python program using classes dimensions,Box and shipping Box  where dimensions stores length,width,height. Box calculates volume and shipping Box includes  weight and displays the total weight
+
+
+class Dimensions:
+    def __init__(self,length,width,height):
+        self.length=length
+        self.width=width
+        self.height=height
+    def show_dimensions(self):
+        print(f"Dimensions length:{self.length} width{self.width}height:{self.height}")
+
+class Box(Dimensions):
+     def __init__(self,length,width,height):
+        super().__init__(length,width,height)
+        self.volume=self.calculate_volume()
+     
+     def calculate_volume(self):
+         return self.length+self.width+self.height
+    
+     def show_volume(self):
+           print(f"Box volume :{self.volume}")
+class ShippingBox(Box):
+    def __init__(self,length,width,height,weight):
+        super().__init__(length,width,height)
+        self.weight=weight  
+    def total_weight(self):
+        print(f"ShippingBox total weight:{self.weight}kg"   )
+        
+
+shipping_box=ShippingBox(length=10,width=5,height=8,weight=20)
+
+
+shipping_box.show_dimensions()
+shipping_box.show_volume()
+shipping_box.total_weight()
