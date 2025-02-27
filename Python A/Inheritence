@@ -1,0 +1,18 @@
+create a vehicle class with(make and model attributes) and a method show_info() to display them .
+create a car class that inherits from vehicle  and adds a year attributes . create a car object to show all its details
+
+class vehicle:
+    def __init__(self,make,model):
+        self.make=make
+        self.model=model
+    def show_info(self):
+        print(f"Make :{self.make},Model{self.model}")
+class car(vehicle):
+    def __init__(self,make,model,year):
+        super().__init__(make,model)
+        self.year=year
+    def show_info(self):
+        print(f"Make {self.make },Model:{self.model},year{self.year}")
+my_car=car(make="toyota",model="corolla",year=2020)
+my_car.show_info()
+
