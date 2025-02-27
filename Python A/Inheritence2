@@ -1,0 +1,52 @@
+ Write a Python program to create a base class animal with the name attribute and eat() method. From this class, create three specialized classes. Mammal adds sound and speak, bird adds can fly and fly, and fish adds is freshwater and swim.
+Choose an inheritance approach that allows all classes to share common properties of the animal class maintaining their unique features.
+
+
+class Animal:
+    def __init__(self,name):
+        self.name=name
+    def eat(self):
+        print(f"{self.name} is eating")
+class Mammal(Animal):
+    def __init__(self,name,sound):
+        super().__init__(name)
+        self.sound=sound
+    def speak(self):
+        print(f"{self.name} says {self.sound}")
+        
+class Bird(Animal):
+    def __init__(self,name,can_fly):
+        super().__init__(name)
+        self.can_fly=can_fly
+    def fly(self):
+        if self.can_fly:
+            print(f"{self.name} is flying!")
+        else:
+            print(f"{self.name} cannot fly")
+            
+class Fish(Animal):
+    def __init__(self,name,is_freshwater):
+        super().__init__(name)
+        self.is_freshwater=is_freshwater
+    def swim(self):
+        if self.is_freshwater:
+            print(f"{self.name}is swimming in fresh water")
+        else:
+            print(f"{self.name}is swimming in salt water")
+            
+mammal=Mammal(name='Dog',sound='bark')
+mammal.eat()
+mammal.speak()
+
+bird=Bird(name='Sparrow',can_fly=True)
+bird.eat()
+bird.fly()
+
+fish=Fish(name='goldfish',is_freshwater=True)
+fish.eat()
+fish.swim()
+
+
+
+
+
