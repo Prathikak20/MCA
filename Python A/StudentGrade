@@ -1,0 +1,33 @@
+create a student class with name  and marks attribute add methods to calculate_average()
+Return the above average of marks ,assign  grade() return a grade based on the average.
+
+
+
+class student:
+    def __init__(self,name,marks):
+        self.name=name
+        self.marks=marks
+    def calculate_average(self):
+        if not self.marks:
+            return 0
+        return sum(self.marks)/(len(self.marks))
+    def assign_grade(self):
+        avg=self.calculate_average()
+        if 90<=avg<=100:
+            return 'A+'
+        elif 80<=avg<=90:
+             return 'B'
+        elif 70<=avg<=80:
+             return 'C'
+        elif 60<=avg<=70:
+             return 'D'
+        elif avg<40:
+            return 'F'
+        else:
+            return 'Pass'
+            
+student1=student(name='Ovi',marks=[87,86,98,88,78])
+avg_marks=student1.calculate_average()
+print(f"average marks{student1.name}:{avg_marks}")
+grade=student1.assign_grade()
+print(f"Grade for {student1.name}:{grade}")
