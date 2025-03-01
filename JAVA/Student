@@ -1,0 +1,69 @@
+//Develop a Web application (JSP) to display Student Detail form. Make use of a JavaBean to store and retrieve the student details. (usage of action element)
+1. JavaBean Class (Student.java)
+package beans;
+public class Student {
+ private String name;
+ private int age;
+ private String course;
+ // Getter and Setter for Name
+ public String getName() {
+ return name;
+ }
+ public void setName(String name) {
+ this.name = name;
+ }
+ // Getter and Setter for Age
+ public int getAge() {
+ return age;
+ }
+ public void setAge(int age) {
+ this.age = age;
+ }
+ // Getter and Setter for Course
+ public String getCourse() {
+ return course;
+ }
+ public void setCourse(String course) {
+ this.course = course;
+ }
+}
+//2. JSP Form (studentForm.jsp)
+<%@ page language="java" contentType="text/html; %>
+<html>
+<head>
+ <title>Student Form</title>
+</head>
+<body>
+ <h2>Student Detail Form</h2>
+ <form action="displayStudent.jsp" method="post">
+ <label for="name">Name:</label>
+ <input type="text" id="name" name="name" required><br><br>
+ <label for="age">Age:</label>
+ <input type="number" id="age" name="age" required><br><br>
+ <label for="course">Course:</label>
+ <input type="text" id="course" name="course" required><br><br>
+ <input type="submit" value="Submit">
+ </form>
+</body>
+</html>
+//3. JSP to Display Details (displayStudent.jsp)
+<%@ page language="java" contentType="text/html; " %>
+<%@ page import="beans.Student" %>
+<jsp:useBean id="student" class="beans.Student" scope="request" />
+<%
+ // Setting bean properties using request parameters
+ student.setName(request.getParameter("name"));
+ student.setAge(Integer.parseInt(request.getParameter("age")));
+ student.setCourse(request.getParameter("course"));
+%>
+<html>
+<head>
+ <title>Student Details</title>
+</head>
+<body>
+ <h2>Student Details</h2>
+ <p><strong>Name:</strong> <%= student.getName() %></p>
+ <p><strong>Age:</strong> <%= student.getAge() %></p>
+ <p><strong>Course:</strong> <%= student.getCourse() %></p>
+</body>
+</html>
