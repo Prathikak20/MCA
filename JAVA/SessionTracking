@@ -1,0 +1,42 @@
+//Web application to illustrate the use of sessions and session tracking
+<%@ page language="java" contentType="text/html; %> 
+<html> 
+<head> 
+    <title>Scriptlet Example</title> 
+</head> 
+<body> 
+    <h1>Demonstration of Scriptlets in JSP</h1> 
+     
+    <!-- Display Current Date --> 
+    <h2>Current Date and Time</h2> 
+    <p> 
+        <%  
+            // Scriptlet to display current date and time     
+        java.util.Date date = new java.util.Date();           
+  out.println(date.toString()); 
+        %> 
+    </p> 
+ 
+    <!-- Display Odd Numbers --> 
+    <h2>First 10 Odd Numbers</h2> 
+    <p> 
+        <%  
+            // Generate and display the first 20 odd numbers 
+            for (int i = 1; i <= 10; i++) {               
+  out.print((2 * i - 1) + " "); // Odd numbers formula: 2 * i - 1 
+            } 
+        %> 
+    </p> 
+ 
+    <!-- Display Even Numbers --> 
+    <h2>First 10 Even Numbers</h2> 
+    <p> 
+        <%  
+            // Generate and display the first 20 even numbers           
+  for (int i = 1; i <= 10; i++) {          
+       out.print((2 * i) + " "); // Even numbers formula: 2 * i 
+            } 
+        %> 
+    </p> 
+</body> 
+</html>
