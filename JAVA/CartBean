@@ -1,0 +1,62 @@
+// Develop an Enterprise application to illustrate the use of stateful session bean (CartBean) (with local interface and Jsp)
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="bean.*;" %>
+<!DOCTYPE html>
+<html>
+ <body>
+ <%!
+ private CartBeanLocal ct;
+ public void jspInit() {
+ ct = new CartBean();
+ }
+ public void jspDestroy() {
+ ct = null;
+ }
+ %>
+ <h1>Shopping Cart</h1>
+ <form>
+ Enter An Item: <input type="text" name="item" value="itme" required >
+ <input type="submit" name="add" value="add" >
+ </form>
+ <%
+ String st = request.getParameter("item");
+ if(st != null)
+ ct.addItem(st);
+ out.print(ct.getItem());
+ %>
+ </body>
+</html>
+CartBean.java
+package bean;
+import java.util.ArrayList;
+import java.util.Collection;
+import javax.ejb.Stateful;
+@Stateful
+public class CartBean implements CartBeanLocal {
+
+ private ArrayList itm;
+ public CartBean() {
+ itm = new ArrayList();
+ }
+
+ @Override
+ public void addItem(String item) {
+ itm.add(item);
+ }
+ @Override
+ public Collection getItem() {
+ return itm;
+ }
+}
+CartBeanLocal.java
+package bean;
+import java.util.Collection;
+import javax.ejb.Local;
+@Local
+public interface CartBeanLocal {
+ void addItem(String item);
+ Collection getItem();
+}
+
+
+
