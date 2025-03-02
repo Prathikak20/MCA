@@ -1,0 +1,90 @@
+//Web application to illustrate use of inserting records to a database table (teacher/student) using servlets (jdbc). Also retrieve all the records from the database. Records details have to obtained from a user form.
+TeacherForm.jsp
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Teacher Management</title>
+</head>
+<body>
+ <h2>Teacher Form</h2>
+ <form action="TeacherServlet" method="post">
+ <label for="name">Name:</label>
+ <input type="text" id="name" name="name" required><br><br>
+
+ <label for="subject">Subject:</label>
+ <input type="text" id="subject" name="subject"><br><br>
+
+ <label for="experience">Years of Experience:</label>
+ <input type="number" id="experience" name="experience"
+min="0"><br><br>
+
+ <button type="submit" name="action" value="insert">Insert</button>
+ <button type="submit" name="action" value="view">View All
+Records</button>
+ </form>
+</body>
+</html>
+TeacherServlet.java
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+@WebServlet("/TeacherServlet")
+public class TeacherServlet extends HttpServlet {
+ private static final String DB_URL = "jdbc:derby://localhost:1527/bookdb";
+ private static final String DB_USER = "root";
+ private static final String DB_PASSWORD = "kai";
+ protected void doPost(HttpServletRequest request, HttpServletResponse
+response)
+ throws ServletException, IOException {
+ String action = request.getParameter("action");
+ response.setContentType("text/html");
+ PrintWriter out = response.getWriter();
+ try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER,
+DB_PASSWORD)) {
+ if ("insert".equals(action)) {
+ // Retrieve form data
+ String name = request.getParameter("name");
+ String subject = request.getParameter("subject");
+ int years = Integer.parseInt(request.getParameter("experience"));
+ // Insert into the Teacher table
+ String sql = "INSERT INTO TEACHER (name, subject, years) VALUES (?,
+?, ?)";
+ try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+ pstmt.setString(1, name);
+ pstmt.setString(2, subject);
+ pstmt.setInt(3, years);
+ pstmt.executeUpdate();
+ out.println("<h3>Teacher record inserted successfully!</h3>");
+ }
+ } else if ("view".equals(action)) {
+ // Retrieve all records from the Teacher table
+ String sql = "SELECT * FROM TEACHER";
+ try (Statement stmt = conn.createStatement();
+ ResultSet rs = stmt.executeQuery(sql)) {
+ out.println("<h3>All Teacher Records:</h3>");
+ out.println("<table border='1'>");
+
+out.println("<tr><th>ID</th><th>Name</th><th>Subject</th><th>Experience
+</th></tr>");
+ while (rs.next()) {
+ out.println("<tr>");
+ out.println("<td>" + rs.getInt("id") + "</td>");
+ out.println("<td>" + rs.getString("name") + "</td>");
+ out.println("<td>" + rs.getString("subject") + "</td>");
+ out.println("<td>" + rs.getInt("years") + "</td>");
+ out.println("</tr>");
+ }
+ out.println("</table>");
+ }
+ }
+ } catch (Exception e) {
+ out.println("<h3>Error: " + e.getMessage() + "</h3>");
+ e.printStackTrace(out);
+ }
+ }
+}
