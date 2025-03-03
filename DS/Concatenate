@@ -1,0 +1,43 @@
+1. Write a c++ program to implement the following without using inbuilt functions,
+i)Concatenate two strings.
+
+
+
+#include<iostream>
+using namespace std;
+
+void strconcat(char str1[10],char str2[10]);
+
+int main()
+{
+    char str1[10],str2[10];
+    cout<<"Enter the first string:";
+    cin>>str1;
+    cout<<"Enter the second string:";
+    cin>>str2;
+    strconcat(str1,str2);
+    return 0;
+}
+
+void strconcat(char str1[10],char str2[10])
+{
+    int i=0,j=0;
+    while(str1[i]!='\0')
+    {
+        i++;
+    }
+    while(str2[j]!='\0')
+    {
+        str1[i]=str2[j];
+        i++;
+        j++;
+    }
+    str1[i]='\0';
+    cout<<"The concatinated string is:"<<str1;
+}
+
+OUTPUT:
+Enter the first string:beaut
+Enter the second string:iful
+The concatinated string is:beautiful
+
