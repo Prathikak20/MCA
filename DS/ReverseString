@@ -1,0 +1,40 @@
+ii)Reverse a given string.
+#include <iostream>
+using namespace std;
+
+void strrev(char str1[]);
+
+void strrev(char str1[]) {
+    int i = 0, j = 0;
+    char ch;
+
+    // Find the length of the string
+    while (str1[i] != '\0') {
+        i++;
+    }
+    i--; // Adjust to point to the last character of the string
+
+    // Reverse the string
+    while (j < i) {
+        ch = str1[j];
+        str1[j] = str1[i];
+        str1[i] = ch;
+        j++;
+        i--;
+    }
+
+    cout << "The reversed string is: " << str1 << endl;
+}
+
+int main() {
+    char str[100]; // Increased size for flexibility
+    cout << "Enter the string: ";
+    cin >> str; // Note: This stops at the first whitespace
+    strrev(str);
+    return 0;
+}
+
+OUTPUT:
+Enter the string: ferris
+The reversed string is: sirref
+
