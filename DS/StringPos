@@ -1,0 +1,58 @@
+iv)Check whether the given string is present in the main string and return the position.
+
+#include <iostream>
+using namespace std;
+
+int strpos(char str1[20], char str2[20]) {
+    int pos = -1, i = 0, j = 0;
+
+    while (str1[j] != '\0') {
+        // Match characters of str2 with str1
+        if (str2[i] == str1[j]) {
+            if (pos == -1) {
+                pos = j; // Mark the starting position
+            }
+            i++;
+            if (str2[i] == '\0') {
+                return pos; // Match found
+            }
+        } else {
+            if (pos != -1) {
+                j = pos; // Reset j to the position after the last match attempt
+            }
+            i = 0;
+            pos = -1;
+        }
+        j++;
+    }
+
+    return -1; // No match found
+}
+
+int main() {
+    char str1[20], str2[20];
+    int pos;
+
+    // Input strings
+    cout << "Enter a string (max 19 characters): ";
+    cin >> str1;
+    cout << "Enter the string to search (max 19 characters): ";
+    cin >> str2;
+
+    // Search for substring
+    pos = strpos(str1, str2);
+
+    // Output result
+    if (pos == -1) {
+        cout << "String not found!";
+    } else {
+        cout << "String found at position: " << pos + 1; // Convert to one-based position
+    }
+
+    return 0;
+}
+
+OUTPUT:
+Enter a string (max 19 characters): honeybee
+Enter the string to search (max 19 characters): ney
+String found at position: 3
