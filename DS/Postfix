@@ -1,0 +1,114 @@
+4.Write a c++ program to convert given paranthesized infix expression to postfix expression.
+#include<iostream>
+using namespace std;
+
+class Convert
+{
+    char infix[30];      //Array to hold the infix expression
+    char postfix[30];   //Array to hold the postfix expression
+    char stk[30];       //Stack for operators
+    int top;            //Stack pointer
+    
+    public:
+        Convert()
+        {
+            top=-1;     //Initialize stack pointer
+        }
+        
+        void read()
+        {
+            cout<<"Enter the infix expression:";
+            cin>>infix;     
+        }
+        
+        void display()
+        {
+            cout<<"Infix Expression:"<<infix<<"\n";
+            cout<<"Postfix Expression:"<<postfix;
+        }
+        
+        void infpost()
+        {
+            int i=0,j=0;
+            char symb;
+            while(infix[i]!='\0')
+            {
+                symb=infix[i];
+                
+                //If the symbol is an operand, add it to the postfix expresssion
+                if(symb>='a'&&symb<='z')
+                {
+                    postfix[j++]=symb;
+                }
+                else if(symb=='(')
+                {
+                    push(symb);     //Push '(' onto the stack
+                }
+                else if(symb==')')
+                {
+                    while(top!=-1&&stk[top]!='(')       //Pop from the stack until '(' is found
+                    {
+                        postfix[j++]=pop();
+                    }
+                    pop();      //Remove '(' from the stack
+                }
+                else
+                {
+                    while(top!=-1&&prio(stk[top])>=prio(symb))      //Handling operators
+                    {
+                        postfix[j++]=pop();     //Pop operators of higher or equal precedence
+                    }
+                    push(symb);     //Push the current operator onto the stack
+                }
+                i++;        //Move to the next symbol;
+            }
+            
+            while(top!=-1)      //Pop all the operators from the stack
+            {
+                postfix[j++]=pop();
+            }
+            postfix[j]='\0' ;    //Null terminate the postfix string
+        }
+
+    int prio(char symb)
+    {
+        switch(symb)                //Return the precedence of operators
+        {
+            case'$':return 3;
+            case'*':return 2;
+            case'/':return 2;
+            case'+':return 1;
+            case'-':return 1;
+            case'(':return 0;       //'('has the lowest precedence
+            case')':return -1;      //')' should not appear in the stack
+            default:return -1;      //To handle unexpected characters
+        }
+    }
+
+    void push(char obj)
+    {
+        top+=1;
+        stk[top]=obj;       //Push the object onto the stack
+    }
+
+    char pop()
+    {
+        char obj=stk[top];
+        top--;          //Decrease the stack pointer
+        return obj;     //Return the popped object
+    }
+};
+
+int main()
+{
+    Convert c;
+    c.read();       //Read the infix Expression
+    c.infpost();    //Convert infix to postfix
+    c.display();    //isplay the results
+    return 0;
+}
+
+OUTPUT:
+Enter the infix expression:(a+b)*(c+d*e$(f+g))
+Infix Expression:(a+b)*(c+d*e$(f+g))
+Postfix Expression:ab+cdefg+$*+*
