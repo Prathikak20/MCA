@@ -1,0 +1,236 @@
+Write a c++ program to implement Singly Linked List using class and structure.
+#include <iostream>
+using namespace std;
+
+typedef struct snode {
+    int data;
+    struct snode *ptr;
+} Node;
+
+class Slist {
+public:
+    Node *fnInsertBegin(Node *head) {
+        int num;
+        cout << "Enter data to insert at beginning: ";
+        cin >> num;
+
+        Node *newnode = (Node *)malloc(sizeof(Node));
+        newnode->data = num;
+        newnode->ptr = head;
+        head = newnode;
+
+        return head;
+    }
+
+    Node *fnInsertEnd(Node *head) {
+        int num;
+        cout << "Enter the number to insert at the end: ";
+        cin >> num;
+
+        Node *newnode = (Node *)malloc(sizeof(Node));
+        newnode->data = num;
+        newnode->ptr = NULL;
+
+        if (head == NULL) {
+            head = newnode;
+        } else {
+            Node *temp = head;
+            while (temp->ptr != NULL)
+                temp = temp->ptr;
+            temp->ptr = newnode;
+        }
+
+        return head;
+    }
+
+    Node *fnInsertpos(Node *head) {
+        int num, pos;
+        cout << "Enter the number: ";
+        cin >> num;
+        cout << "Enter the position: ";
+        cin >> pos;
+
+        Node *newnode = (Node *)malloc(sizeof(Node));
+        newnode->data = num;
+
+        if (pos == 0) {
+            newnode->ptr = head;
+            head = newnode;
+        } else {
+            Node *temp = head;
+            int count = 0;
+            while (temp != NULL && count < pos - 1) {
+                temp = temp->ptr;
+                count++;
+            }
+            if (temp == NULL) {
+                cout << "Position out of bounds.\n";
+                free(newnode);
+                return head;
+            }
+            newnode->ptr = temp->ptr;
+            temp->ptr = newnode;
+        }
+        return head;
+    }
+
+    Node *fnDeleteBegin(Node *head) {
+        if (head == NULL) {
+            cout << "List is empty.\n";
+            return head;
+        }
+        Node *temp = head;
+        head = head->ptr;
+        cout<<"Deleted node from the beginning:"<<temp->data<<"\n";
+        free(temp);
+        return head;
+    }
+
+    Node *fnDeleteEnd(Node *head) {
+        if (head == NULL) {
+            cout << "List is empty.\n";
+            return head;
+        }
+        if (head->ptr == NULL) {
+             cout<<"Deleted node from the end:"<<head->data<<"\n";
+            free(head);
+            return NULL;
+        }
+        Node *temp = head;
+        while (temp->ptr->ptr != NULL)
+            temp = temp->ptr;
+        cout<<"Deleted node from the end:"<<temp->ptr->data<<"\n";
+        free(temp->ptr);
+        temp->ptr = NULL;
+        return head;
+    }
+
+    Node *fnDeletepos(Node *head, int pos) {
+        if (head == NULL) {
+            cout << "List is empty.\n";
+            return head;
+        }
+        if (pos == 0) {
+            Node *temp = head;
+            head = head->ptr;
+            cout<<"Deleted node from the position "<<pos<<":"<<temp->data<<"\n";
+            free(temp);
+            return head;
+        }
+
+        Node *temp = head;
+        int count = 0;
+        while (temp->ptr != NULL && count < pos - 1) {
+            temp = temp->ptr;
+            count++;
+        }
+        if (temp->ptr == NULL) {
+            cout << "Position invalid.\n";
+            return head;
+        }
+
+        Node *temp2 = temp->ptr;
+        temp->ptr = temp2->ptr;
+        cout<<"Deleted node from the position "<<pos<<":"<<temp2->data<<"\n";
+        free(temp2);
+
+        return head;
+    }
+
+    void fnDisplay(Node *head) {
+        if (head == NULL) {
+            cout << "List is empty.\n";
+            return;
+        }
+        Node *temp = head;
+        while (temp != NULL) {
+            cout << temp->data;
+            if (temp->ptr != NULL)
+                cout << " -> ";
+            temp = temp->ptr;
+        }
+        cout << "\n*** End ***\n";
+    }
+};
+
+int main() {
+    Slist s;
+    Node *head = NULL;
+    int ch, pos;
+    cout << "Menu\n1. Insert begin\n2. Insert end\n3. Insert position\n4. Delete begin\n5. Delete end\n6. Delete position\n7. Display\n8. Exit\n";
+    while (1) {
+        cout << "Enter your choice: ";
+        cin >> ch;
+        switch (ch) {
+            case 1:
+                head = s.fnInsertBegin(head);
+                break;
+            case 2:
+                head = s.fnInsertEnd(head);
+                break;
+            case 3:
+                head = s.fnInsertpos(head);
+                break;
+            case 4:
+                head = s.fnDeleteBegin(head);
+                break;
+            case 5:
+                head = s.fnDeleteEnd(head);
+                break;
+            case 6:
+                cout << "Enter position to delete: ";
+                cin >> pos;
+                head = s.fnDeletepos(head, pos);
+                break;
+            case 7:
+                s.fnDisplay(head);
+                break;
+            case 8:
+                exit(0);
+            default:
+                cout << "Invalid choice. Try again.\n";
+        }
+    }
+}
+
+OUTPUT:
+Menu
+1. Insert begin
+2. Insert end
+3. Insert position
+4. Delete begin
+5. Delete end
+6. Delete position
+7. Display
+8. Exit
+Enter your choice: 1
+Enter data to insert at beginning: 1
+Enter your choice: 2
+Enter the number to insert at the end: 2
+Enter your choice: 1
+Enter data to insert at beginning: 4
+Enter your choice: 2
+Enter the number to insert at the end: 6
+Enter your choice: 3
+Enter the number: 5
+Enter the position: 2
+Enter your choice: 7
+4 -> 1 -> 5 -> 2 -> 6
+*** End ***
+Enter your choice: 4
+Deleted node from the beginning:4
+Enter your choice: 5
+Deleted node from the end:6
+Enter your choice: 7
+1 -> 5 -> 2
+*** End ***
+Enter your choice: 6
+Enter position to delete: 2
+Deleted node from the position2:2
+Enter your choice: 4
+Deleted node from the beginning:1
+Enter your choice: 5
+Deleted node from the end:5
+Enter your choice: 7
+List is empty.
+Enter your choice: 8
