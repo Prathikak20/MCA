@@ -1,0 +1,142 @@
+Write a c++ program to implement Ascending Priority Queue using arrays and class.
+#include<iostream>
+#define MAX 5
+using namespace std;
+
+class PQueue
+{
+    int front,rear;
+    int PQ[MAX];
+    public:
+        PQueue()
+        {
+            front=rear=-1;
+        }
+        void fninsert()
+        {
+           int obj;
+            if(rear==MAX-1)
+                cout<<"Queue is full!\n";
+            else
+            {
+                cout<<"Enter the element:";
+                cin>>obj;
+                PQ[++rear]=obj;
+                if(front==-1)
+                    front=0;
+            }
+        }
+        
+        void fndelete()
+        {
+            int obj,min,i,index=0;
+            if(front==-1)
+                cout<<"PQueue is empty!\n";
+            else if(front==rear)
+                front=rear=-1;
+            else
+            {
+                min=PQ[0];
+                for(i=1;i<=rear;i++)
+                {
+                    if(min>PQ[i])
+                    {
+                        min=PQ[i];
+                        index=i;
+                    }
+                }
+                obj=PQ[index];
+                cout<<"Deleted element:"<<obj<<"\n";
+                for(i=index;i<rear;i++)
+                {
+                    PQ[i]=PQ[i+1];
+                }
+                rear=rear-1;
+            }
+        }
+        
+        void fndisplay()
+        {
+            int i;
+            if(front==-1)
+                cout<<"Queue is empty!\n";
+            else
+            {
+                for(i=front;i<=rear;i++)
+                {
+                    cout<<PQ[i]<<"\t";
+                }
+            }
+        }
+};
+
+int main()
+{
+    int ch;
+    PQueue pq;
+    cout<<"MENU\n1.INSERT\n2.DELETE\n3.DISPLAY\n4.EXIT\n";
+    while(1)
+    {
+        cout<<"\nEnter your choice:";
+        cin>>ch;
+        switch(ch)
+        {
+            case 1:pq.fninsert();
+                    break;
+            case 2:pq.fndelete();
+                    break;
+            case 3:pq.fndisplay();
+                    break;
+            case 4:exit(0);
+        }
+    }
+}
+
+OUTPUT:
+MENU
+1.INSERT
+2.DELETE
+3.DISPLAY
+4.EXIT
+
+Enter your choice:1
+Enter the element:1
+
+Enter your choice:1
+Enter the element:6
+
+Enter your choice:1
+Enter the element:4
+
+Enter your choice:1
+Enter the element:9
+
+Enter your choice:1
+Enter the element:2
+
+Enter your choice:1
+Queue is full!
+
+Enter your choice:3
+1       6       4       9       2
+Enter your choice:2
+Deleted element:1
+
+Enter your choice:2
+Deleted element:2
+
+Enter your choice:2
+Deleted element:4
+
+Enter your choice:2
+Deleted element:6
+
+Enter your choice:2
+
+Enter your choice:2
+PQueue is empty!
+
+Enter your choice:3
+Queue is empty!
+
+Enter your choice:4
