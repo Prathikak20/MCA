@@ -1,0 +1,270 @@
+13.Write a c++ program to implement Ordered Singly Linked List,Reverse the list and display the same using class and structure.
+#include <iostream>
+using namespace std;
+
+typedef struct snode {
+    int data;
+    struct snode *next;
+} Node;
+
+class OrderedSlist {
+public:
+    Node *fnInsertOrdered(Node *head, int num) {
+        Node *newnode = (Node *)malloc(sizeof(Node));
+        newnode->data = num;
+        newnode->next = NULL;
+
+        if (head == NULL || head->data >= num) {
+            // Insert at the beginning
+            newnode->next = head;
+            head = newnode;
+        } else {
+            // Insert in the middle or at the end
+            Node *temp = head;
+            while (temp->next != NULL && temp->next->data < num) {
+                temp = temp->next;
+            }
+            newnode->next = temp->next;
+            temp->next = newnode;
+        }
+        return head;
+    }
+
+    Node *fnReverse(Node *head) {
+        Node *prev = NULL, *current = head, *next = NULL;
+
+        while (current != NULL) {
+            next = current->next; // Store the next node
+            current->next = prev; // Reverse the link
+            prev = current;       // Move prev one step forward
+            current = next;       // Move current one step forward
+        }
+        head = prev; // Update head to the last non-null node
+        return head;
+    }
+
+    void fnDisplay(Node *head) {
+        if (head == NULL) {
+            cout << "List is empty.\n";
+            return;
+        }
+
+        Node *temp = head;
+        while (temp != NULL) {
+            cout << temp->data << " -> ";
+            temp = temp->next;
+        }
+        cout << "NULL\n";
+    }
+};
+
+int main() {
+    OrderedSlist oslist;
+    Node *head = NULL;
+    int ch, num;
+
+    cout << "Menu:\n";
+    cout << "1. Insert ordered\n";
+    cout << "2. Display\n";
+    cout << "3. Reverse and display\n";
+    cout << "4. Exit\n";
+
+    while (1) {
+        cout << "Enter your choice: ";
+        cin >> ch;
+
+        switch (ch) {
+            case 1:
+                cout << "Enter a number to insert: ";
+                cin >> num;
+                head = oslist.fnInsertOrdered(head, num);
+                break;
+
+            case 2:
+                cout << "List: ";
+                oslist.fnDisplay(head);
+                break;
+
+            case 3:
+                head = oslist.fnReverse(head);
+                cout << "Reversed list: ";
+                oslist.fnDisplay(head);
+                break;
+
+            case 4:
+                exit(0);
+
+            default:
+                cout << "Invalid choice. Try again.\n";
+        }
+    }
+
+    return 0;
+}
+
+OUTPUT:
+Menu:
+1. Insert ordered
+2. Display
+3. Reverse and display
+4. Exit
+Enter your choice: 1
+Enter a number to insert: 4
+Enter your choice: 1
+Enter a number to insert: 2
+Enter your choice: 1
+Enter a number to insert: 7
+Enter your choice: 1
+Enter a number to insert: 5
+Enter your choice: 2
+List: 2 -> 4 -> 5 -> 7 -> NULL
+Enter your choice: 3
+Reversed list: 7 -> 5 -> 4 -> 2 -> NULL
+Enter your choice: 4
+-------------------------------------------------------------------------------------------------------------------
+14.Write a c++ program to implement binary tree using linked list and traverse the tree using inorder,pre order and post order traversal methods.
+#include <iostream>
+using namespace std;
+
+typedef struct btnode{
+    int data;
+    struct btnode *left;
+    struct btnode *right;
+} Node;
+
+class BTList{
+    public:
+        Node *insert(Node *);
+        void inorder(Node *);
+        void preorder(Node *);
+        void postorder(Node *);
+};
+
+int main(){
+    int ch, level = 1;
+    BTList bt;
+    Node *root = NULL;
+    cout<<"\nMenu\n1.Insert\n2.Inorder\n3.Preorder\n4.Postorder\n5.Exit\n"<<endl;
+
+    while (true){
+        cout<<"Enter your choice : ";
+        cin>>ch;
+
+        switch (ch){
+        case 1:
+            root = bt.insert(root);
+            break;
+        case 2:
+            cout<<"In-Order Traversal :";
+            bt.inorder(root);
+            cout<<"\n";
+            break;
+        case 3:
+            cout<<"Pre-Order Traversal:";
+            bt.preorder(root);
+            cout<<"\n";
+            break;
+        case 4:
+            cout<<"Post-Order Traversal:";
+            bt.postorder(root);
+            cout<<"\n";
+            break;
+        case 5:
+            exit(0);
+        default:
+            cout<<"Invalid Choice!";
+            break;
+        }
+    }
+    return 0;
+}
+
+Node *BTList::insert(Node *root){
+    int item, num;
+    Node *newNode, *cur, *ptr;
+
+    newNode = (Node *)malloc(sizeof(Node));
+    cout<<"Enter the element to insert : ";
+    cin>>num;
+
+    newNode -> data = num;
+    newNode -> left = NULL;
+    newNode -> right = NULL;
+    item = newNode -> data;
+
+    if (root == NULL)
+        root = newNode;
+    else{
+        cur = root;
+        while (cur != NULL){
+            ptr = cur;
+
+            if (item >= cur -> data)
+                cur = cur -> right;
+            else
+                cur = cur -> left;
+        }
+
+        if (item >= ptr -> data)
+            ptr -> right = newNode;
+        else
+            ptr -> left = newNode;
+    }
+
+    return root;
+}
+
+void BTList ::inorder(Node *root){
+    if (root == NULL) return;
+
+    inorder(root -> left);
+    cout<<root -> data<<"  ";
+    inorder(root -> right);
+}
+
+void BTList ::preorder(Node *root){
+    if (root == NULL) return;
+
+    cout<<root -> data<<"  ";
+    preorder(root -> left);
+    preorder(root -> right);
+}
+
+void BTList ::postorder(Node *root){
+    if (root == NULL) return;
+
+    postorder(root -> left);
+    postorder(root -> right);
+    cout<<root -> data<<"  ";
+}
+
+
+OUTPUT:
+Menu
+1.Insert
+2.Inorder
+3.Preorder
+4.Postorder
+5.Exit
+
+Enter your choice : 1
+Enter the element to insert : 4
+Enter your choice : 1
+Enter the element to insert : 5
+Enter your choice : 1
+Enter the element to insert : 9
+Enter your choice : 1
+Enter the element to insert : 7
+Enter your choice : 1
+Enter the element to insert : 8
+Enter your choice : 1
+Enter the element to insert : 11
+Enter your choice : 1
+Enter the element to insert : 3
+Enter your choice : 2
+In-Order Traversal :3  4  5  7  8  9  11  
+Enter your choice : 3
+Pre-Order Traversal:4  3  5  9  7  8  11  
+Enter your choice : 4
+Post-Order Traversal:3  8  7  11  9  5  4  
+Enter your choice : 5 
