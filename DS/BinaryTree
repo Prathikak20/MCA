@@ -1,0 +1,146 @@
+14.Write a c++ program to implement binary tree using linked list and traverse the tree using inorder,pre order and post order traversal methods.
+#include <iostream>
+using namespace std;
+
+typedef struct btnode{
+    int data;
+    struct btnode *left;
+    struct btnode *right;
+} Node;
+
+class BTList{
+    public:
+        Node *insert(Node *);
+        void inorder(Node *);
+        void preorder(Node *);
+        void postorder(Node *);
+};
+
+int main(){
+    int ch, level = 1;
+    BTList bt;
+    Node *root = NULL;
+    cout<<"\nMenu\n1.Insert\n2.Inorder\n3.Preorder\n4.Postorder\n5.Exit\n"<<endl;
+
+    while (true){
+        cout<<"Enter your choice : ";
+        cin>>ch;
+
+        switch (ch){
+        case 1:
+            root = bt.insert(root);
+            break;
+        case 2:
+            cout<<"In-Order Traversal :";
+            bt.inorder(root);
+            cout<<"\n";
+            break;
+        case 3:
+            cout<<"Pre-Order Traversal:";
+            bt.preorder(root);
+            cout<<"\n";
+            break;
+        case 4:
+            cout<<"Post-Order Traversal:";
+            bt.postorder(root);
+            cout<<"\n";
+            break;
+        case 5:
+            exit(0);
+        default:
+            cout<<"Invalid Choice!";
+            break;
+        }
+    }
+    return 0;
+}
+
+Node *BTList::insert(Node *root){
+    int item, num;
+    Node *newNode, *cur, *ptr;
+
+    newNode = (Node *)malloc(sizeof(Node));
+    cout<<"Enter the element to insert : ";
+    cin>>num;
+
+    newNode -> data = num;
+    newNode -> left = NULL;
+    newNode -> right = NULL;
+    item = newNode -> data;
+
+    if (root == NULL)
+        root = newNode;
+    else{
+        cur = root;
+        while (cur != NULL){
+            ptr = cur;
+
+            if (item >= cur -> data)
+                cur = cur -> right;
+            else
+                cur = cur -> left;
+        }
+
+        if (item >= ptr -> data)
+            ptr -> right = newNode;
+        else
+            ptr -> left = newNode;
+    }
+
+    return root;
+}
+
+void BTList ::inorder(Node *root){
+    if (root == NULL) return;
+
+    inorder(root -> left);
+    cout<<root -> data<<"  ";
+    inorder(root -> right);
+}
+
+void BTList ::preorder(Node *root){
+    if (root == NULL) return;
+
+    cout<<root -> data<<"  ";
+    preorder(root -> left);
+    preorder(root -> right);
+}
+
+void BTList ::postorder(Node *root){
+    if (root == NULL) return;
+
+    postorder(root -> left);
+    postorder(root -> right);
+    cout<<root -> data<<"  ";
+}
+
+
+OUTPUT:
+Menu
+1.Insert
+2.Inorder
+3.Preorder
+4.Postorder
+5.Exit
+
+Enter your choice : 1
+Enter the element to insert : 4
+Enter your choice : 1
+Enter the element to insert : 5
+Enter your choice : 1
+Enter the element to insert : 9
+Enter your choice : 1
+Enter the element to insert : 7
+Enter your choice : 1
+Enter the element to insert : 8
+Enter your choice : 1
+Enter the element to insert : 11
+Enter your choice : 1
+Enter the element to insert : 3
+Enter your choice : 2
+In-Order Traversal :3  4  5  7  8  9  11  
+Enter your choice : 3
+Pre-Order Traversal:4  3  5  9  7  8  11  
+Enter your choice : 4
+Post-Order Traversal:3  8  7  11  9  5  4  
+Enter your choice : 5 
