@@ -1,0 +1,254 @@
+12.Write a c++ program to implement Doubly Linked List using class and structure.
+#include <iostream>
+using namespace std;
+
+typedef struct dnode {
+    int data;
+    struct dnode *next;
+    struct dnode *prev;
+} Node;
+
+class Dlist {
+public:
+    Node *fnInsertBegin(Node *head) {
+        int num;
+        cout << "Enter data to insert at beginning: ";
+        cin >> num;
+
+        Node *newnode = (Node *)malloc(sizeof(Node));
+        newnode->data = num;
+        newnode->prev = NULL;
+        newnode->next = head;
+
+        if (head != NULL)
+            head->prev = newnode;
+
+        head = newnode;
+        return head;
+    }
+
+    Node *fnInsertEnd(Node *head) {
+        int num;
+        cout << "Enter the number to insert at the end: ";
+        cin >> num;
+
+        Node *newnode = (Node *)malloc(sizeof(Node));
+        newnode->data = num;
+        newnode->next = NULL;
+
+        if (head == NULL) {
+            newnode->prev = NULL;
+            head = newnode;
+        } else {
+            Node *temp = head;
+            while (temp->next != NULL)
+                temp = temp->next;
+            temp->next = newnode;
+            newnode->prev = temp;
+        }
+
+        return head;
+    }
+
+    Node *fnInsertpos(Node *head) {
+        int num, pos;
+        cout << "Enter the number: ";
+        cin >> num;
+        cout << "Enter the position: ";
+        cin >> pos;
+
+        Node *newnode = (Node *)malloc(sizeof(Node));
+        newnode->data = num;
+
+        if (pos == 0) {
+            newnode->prev = NULL;
+            newnode->next = head;
+            if (head != NULL)
+                head->prev = newnode;
+            head = newnode;
+        } else {
+            Node *temp = head;
+            int count = 0;
+            while (temp != NULL && count < pos - 1) {
+                temp = temp->next;
+                count++;
+            }
+            if (temp == NULL) {
+                cout << "Position out of bounds.\n";
+                free(newnode);
+            } else {
+                newnode->next = temp->next;
+                newnode->prev = temp;
+                if (temp->next != NULL)
+                    temp->next->prev = newnode;
+                temp->next = newnode;
+            }
+        }
+
+        return head;
+    }
+
+    Node *fnDeleteBegin(Node *head) {
+        if (head == NULL) {
+            cout << "List is empty.\n";
+            return head;
+        }
+
+        Node *temp = head;
+        cout << "Deleted element: " << temp->data << endl;
+
+        head = head->next;
+        if (head != NULL)
+            head->prev = NULL;
+        free(temp);
+
+        return head;
+    }
+
+    Node *fnDeleteEnd(Node *head) {
+        if (head == NULL) {
+            cout << "List is empty.\n";
+            return head;
+        }
+
+        Node *temp = head;
+        while (temp->next != NULL)
+            temp = temp->next;
+
+        cout << "Deleted element: " << temp->data << endl;
+
+        if (temp->prev != NULL)
+            temp->prev->next = NULL;
+        else
+            head = NULL;
+
+        free(temp);
+        return head;
+    }
+
+    Node *fnDeletepos(Node *head, int pos) {
+        if (head == NULL) {
+            cout << "List is empty.\n";
+            return head;
+        }
+
+        Node *temp = head;
+
+        if (pos == 0) {
+            return fnDeleteBegin(head);
+        }
+
+        int count = 0;
+        while (temp != NULL && count < pos) {
+            temp = temp->next;
+            count++;
+        }
+
+        if (temp == NULL) {
+            cout << "Position invalid.\n";
+        } else {
+            cout << "Deleted element: " << temp->data << endl;
+            if (temp->prev != NULL)
+                temp->prev->next = temp->next;
+            if (temp->next != NULL)
+                temp->next->prev = temp->prev;
+            free(temp);
+        }
+
+        return head;
+    }
+
+    void fnDisplay(Node *head) {
+        if (head == NULL) {
+            cout << "List is empty.\n";
+            return;
+        }
+
+        Node *temp = head;
+        while (temp != NULL) {
+            cout << temp->data << " <-> ";
+            temp = temp->next;
+        }
+        cout << "NULL\n";
+    }
+};
+
+int main() {
+    Dlist d;
+    Node *head = NULL;
+    int ch, pos;
+    cout << "Menu\n1. Insert begin\n2. Insert end\n3. Insert position\n4. Delete begin\n5. Delete end\n6. Delete position\n7. Display\n8. Exit\n";
+    while (1) {
+        cout << "Enter your choice: ";
+        cin >> ch;
+        switch (ch) {
+            case 1:
+                head = d.fnInsertBegin(head);
+                break;
+            case 2:
+                head = d.fnInsertEnd(head);
+                break;
+            case 3:
+                head = d.fnInsertpos(head);
+                break;
+            case 4:
+                head = d.fnDeleteBegin(head);
+                break;
+            case 5:
+                head = d.fnDeleteEnd(head);
+                break;
+            case 6:
+                cout << "Enter position to delete: ";
+                cin >> pos;
+                head = d.fnDeletepos(head, pos);
+                break;
+            case 7:
+                d.fnDisplay(head);
+                break;
+            case 8:
+                exit(0);
+            default:
+                cout << "Invalid choice. Try again.\n";
+        }
+    }
+}
+
+OUTPUT:
+Menu
+1. Insert begin
+2. Insert end
+3. Insert position
+4. Delete begin
+5. Delete end
+6. Delete position
+7. Display
+8. Exit
+Enter your choice: 1
+Enter data to insert at beginning: 1
+Enter your choice: 2
+Enter the number to insert at the end: 2
+Enter your choice: 1
+Enter data to insert at beginning: 5
+Enter your choice: 2
+Enter the number to insert at the end: 8
+Enter your choice: 3
+Enter the number: 4
+Enter the position: 3
+Enter your choice: 7
+5 <-> 1 <-> 2 <-> 4 <-> 8 <-> NULL
+Enter your choice: 4
+Deleted element: 5
+Enter your choice: 5
+Deleted element: 8
+Enter your choice: 7
+1 <-> 2 <-> 4 <-> NULL
+Enter your choice: 6
+Enter position to delete: 1
+Deleted element: 2
+Enter your choice: 7
+1 <-> 4 <-> NULL
+Enter your choice: 1
+Enter data to insert at beginning: 3
+Enter your choice: 7
+3 <-> 1 <-> 4 <-> NULL
+Enter your choice: 8
