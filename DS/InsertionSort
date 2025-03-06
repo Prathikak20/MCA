@@ -1,0 +1,43 @@
+---------------------------------------------------------------------------------------------
+17.Write a c++ proram to sort the array elements using Insertion sort.
+#include <iostream>
+using namespace std;
+void insertionSort(int[], int);
+
+int main(){
+    int x[10], n;
+    cout<<"Enter no of Elements: ";
+    cin>>n;
+    cout<<"Enter Integers in an Array:\n";
+    for(int i = 0; i < n; i++)
+        cin>>x[i];
+
+    insertionSort(x, n);
+    return 0;
+}
+
+void insertionSort(int x[10], int n){
+    int i, j, key;
+    for(i = 1; i < n; i++){
+        key = x[i];
+        for(j=i-1; j>=0 && key<x[j]; j--)
+        {
+            x[j+1] = x[j];
+        }
+        x[j+1] = key;
+    }
+
+    cout<<"Sorted Array using Insertion Sort  : ";
+    for(i=0; i<n; i++)
+        cout<<x[i]<<"  ";
+}
+
+OUTPUT:
+Enter no of Elements: 5
+Enter Integers in an Array:
+6
+3
+5
+1
+2
+Sorted Array using Insertion Sort  : 1  2  3  5  6
