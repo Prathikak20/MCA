@@ -1,0 +1,48 @@
+16.Write a c++ proram to sort the array elements using Bubble sort.
+#include <iostream>
+using namespace std;
+void bubbleSort(int[], int);
+
+int main(){
+    int x[10], n;
+
+    cout<<"Enter no of Elements : ";
+    cin>>n;
+
+    cout<<"Enter Elements in array :\n";
+    for(int i = 0; i < n; i++)
+        cin>>x[i];
+
+    bubbleSort(x, n);
+    return 0;
+}
+
+void bubbleSort(int x[10], int n){
+    int i, j, temp;
+
+    for(i = 0; i < n; i++){
+        for(j = 0; j<n-i-1; j++){
+            if(x[j] > x[j+1])  {
+                temp = x[j];
+                x[j] = x[j+1];
+                x[j+1] = temp;
+            } 
+        }
+    }
+
+    cout<<"\nSorted Elements using Bubble sort : ";
+    for(i = 0; i < n; i++)
+        cout<<x[i]<<"  ";
+}
+
+OUTPUT:
+Enter no of Elements : 5
+Enter Elements in array :
+7
+4
+2
+8
+1
+
+Sorted Elements using Bubble sort : 1  2  4  7  8 
+
