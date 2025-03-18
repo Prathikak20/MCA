@@ -1,0 +1,25 @@
+11.Write a python program to find the Factorial and Fibonacciof a number using recursion.
+
+def fact(n):
+    if n==0 or n==1:
+        return 1 
+    return n*fact(n-1)
+    
+def fib(n):
+    if n==0:
+        return 0
+    elif(n==1):
+        return 1 
+    return fib(n-1)+fib(n-2)
+
+n=int(input("Enter a number:"))
+print(f"Factorial of {n} is {fact(n)}")
+print(f"Fibonacci series of {n} is")
+for i in range(n):
+    print(fib(i),end=" ")
+	
+OUTPUT:
+Enter a number:5
+Factorial of 5 is 120
+Fibonacci series of 5 is
+0 1 1 2 3
