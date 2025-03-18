@@ -1,0 +1,18 @@
+13.Write a python program to sort the elements in the array using Bubble sort technique and display the elements in descending order.
+
+def bubbsort(arr):
+    n=len(arr)
+    for i in range(n):
+        for j in range (0,n-i-1):
+            if(arr[j]<arr[j+1]):
+                arr[j],arr[j+1]=arr[j+1],arr[j]
+arr=list(map(int,input("Enter the array elements:").split()))
+print(arr)
+bubbsort(arr)
+print("Array in descending order:",arr)
+
+OUTPUT:
+
+Enter the array elements:2 5 1 9 7 3
+[2, 5, 1, 9, 7, 3]
+Array in descending order: [9, 7, 5, 3, 2, 1]
