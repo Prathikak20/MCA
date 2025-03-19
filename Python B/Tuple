@@ -1,0 +1,23 @@
+14.Consider the list of courses opted by a student "John" and available electives as a part of Student Management System.
+courses=("Python Programming","RDBMS","Web Technology","Software Engg")
+electives=("Business Intelligence","Big data Analysis")
+Write a python program to satisfy the following business requirements:
+a) List the no.of courses opted by student John.
+b) List all the courses opted by student John.
+c) John is also interested in elective courses mentioned above. Print the updated tuple including electives.
+d) Check whether John is allowed to change his course from SE to Computer Network.
+
+courses=("Python Programming","RDBMS","Web Technology","Software Engg")
+electives=("Business Intelligence","Big data Analysis")
+no_of_courses=len(courses)
+print("No,of Coursers:",no_of_courses)
+print("All courses opted by John:\n",tuple(courses))
+print("All courses opted by John including electives:\n",tuple(courses+electives))
+
+OUTPUT:
+
+No,of Coursers: 4
+All courses opted by John:
+ ('Python Programming', 'RDBMS', 'Web Technology', 'Software Engg')
+All courses opted by John including electives:
+ ('Python Programming', 'RDBMS', 'Web Technology', 'Software Engg', 'Business Intelligence', 'Big data Analysis')
