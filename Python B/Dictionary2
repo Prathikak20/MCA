@@ -1,0 +1,11 @@
+16.Write a python program to Map 2 lists into dictionary.
+
+n1=list(input("Enter list 1:"))
+n2=list(input("Enter list 2:"))
+res=zip(n1,n2)
+print(dict(res))
+
+OUTPUT:
+Enter list 1:12345
+Enter list 2:chari
+{'1': 'c', '2': 'h', '3': 'a', '4': 'r', '5': 'i'}
