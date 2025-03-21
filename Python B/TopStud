@@ -1,0 +1,15 @@
+17.Consider 10 student name and marks in one subject. Calculate the total and average of marks and find the top 3 scorers and also the average marks scored by all the students.
+
+stud={"Sia":75,"Tina":80,"Rahul":54,"Raj":45,"Naina":99}
+total_m=sum(stud.values())
+avg_m=total_m/len(stud)
+print(f"Average marks is:{avg_m:.2f}")
+sorted_stud=sorted(stud.items(),key=lambda x:x[1],reverse=True)
+top3_scrers=sorted_stud[:3]
+top3_dict=dict(top3_scrers)
+print("Top 3 scorers:",top3_dict)
+
+OUTPUT:
+Average marks is:70.60
+Top 3 scorers: {'Naina': 99, 'Tina': 80, 'Sia': 75}
+-------------------------------------------------------------------------------
