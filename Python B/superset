@@ -1,0 +1,19 @@
+18.Write a python program to check whether the given sets are Subset or Superset of each other.
+
+set1=set(input("Enter set 1:"))
+set2=set(input("Enter set 2:"))
+print("Set 1 is:",set1)
+print("Set 2 is:",set2)
+if set1.issubset(set2):
+    print("Set 1 is a sub set of Set 2!")
+elif set1.issuperset(set2):
+    print("Set 1 is a super set of Set 2!")
+else:
+    print("Neither a subset nor a super set")
+    
+OUTPUT:
+Enter set 1:123456
+Enter set 2:3456
+Set 1 is: {'4', '5', '1', '2', '3', '6'}
+Set 2 is: {'4', '5', '3', '6'}
+Set 1 is a super set of Set 2!
