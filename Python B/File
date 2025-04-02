@@ -1,0 +1,37 @@
+19.Write a python program to perform the following:
+a) Reverse in descending order,union in ascending order,intersection in ascending order using the input present in the file.
+b) Print the output as well as save the file in a new file with file name as 'output_program_<<program number>>_<<register number>>_<<year>>_<<month>>_<<date>>.txt'.
+c) Output of reverse,union,intersection should be printed in a newline.
+d) Copy the program file from the existing file destination to location whereyour input and output file is present.
+
+import shutil
+from datetime import datetime
+def read_number(file):
+    with open(file,"r")as f:
+        return list(map(int,f.read().split()))
+def save_output(output_file,reverse_desc,union_asc,intersection_asc):
+    with open(output_file."w")as f:
+        f.write(f"Reverse in descending order:{reverse_desc}")
+        f.write(f"Union in ascending order:{union_asc}")
+        f.write(f"Intersection in ascending order:{intersection_asc}")
+def main():
+    input_file="digits.txt"
+    set1=set(read_number(input_file))
+    print(set1)
+    set1={2,3,4}
+    print(set2)
+    reverse_desc=sorted(set1,reverse=True)
+    union_asc=sorted(set1.union(set2))
+    intersection_asc=sorted(set(set1).intersection(set2))
+    now=datetime.now()
+    output_file=f"output_program_187_{now.year}_{now.month}_{now.day}.txt"\
+    print(f"Reverse:",reverse_desc)
+    print("Union:",union_asc)
+    print("Intersection:",intersection_asc)
+    save_output(output_file,reverse_desc,union_asc,intersection_asc)
+if __name__=="__main__":
+    main()
+    
+Text File Name: digits.txt
+9 5 2 8
+2 3 4
