@@ -1,0 +1,43 @@
+--------------------------------------------------------------------------------------
+23.Create an abstract class Relation with abstract method to implement the basic relational operators(==,<>,>=)on two integers. Define class Numbers with two data fields(N1,N2) which extends class Relation and illustrtate in the main class.
+
+from abc import ABC,abstractmethod
+class relation(ABC):
+    @abstractmethod
+    def is_greater(self,a:int,b:int)->bool:
+        pass
+    @abstractmethod
+    def is_less(self,a:int,b:int)->bool:
+        pass
+    @abstractmethod
+    def is_equal(self,a:int,b:int)->bool:
+        pass
+    
+class Number(relation):
+    def __init__(self,n1:int,n2:int):
+        self.n1=n1
+        self.n2=n2
+    def is_greater(self,a:int,b:int)->bool:
+        return a>b 
+    def is_less(self,a:int,b:int)->bool:
+        return a<b 
+    def is_equal(self,a:int,b:int)->bool:
+        return a==b 
+    def compare(self):
+        print(f"{self.n1}>{self.n2}:{self.is_greater(self.n1,self.n2)}")
+        print(f"{self.n1}<{self.n2}:{self.is_less(self.n1,self.n2)}")
+        print(f"{self.n1}=={self.n2}:{self.is_equal(self.n1,self.n2)}")
+        
+def main():
+    n1=int(input("Enter first number:"))
+    n2=int(input("Enter the second number:"))
+    num=Number(n1,n2)
+    num.compare()
+if __name__=="__main__":
+    main()
+	
+OUTPUT:Enter first number:34
+Enter the second number:27
+34>27:True
+34<27:False
+34==27:False
