@@ -1,0 +1,20 @@
+21.Write a class Distance with instance variables feet and inches.Include necessary methods.Test the class.
+
+class Distance:
+    def __init__(self,feet,inches):
+        self.feet=feet
+        self.inches=inches
+    def add(self):
+        self.feet=self.feet+self.inches//12
+        self.inches=self.inches%12
+        print(self.feet,"Feet,",self.inches,"Inches")
+        
+f=int(input("Enter feet:"))
+i=int(input("Entert inches:"))
+d1=Distance(f,i)
+d1.add()
+
+OUTPUT:
+Enter feet:13
+Entert inches:18
+14 Feet, 6 Inches
