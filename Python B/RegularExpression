@@ -1,0 +1,35 @@
+24.Consider the scenario from Student Management System and perform the following:
+a) Accept student_id and validate whether it contains only digits.
+b) If student_id is valid, accept student_name from the yser and validate whether it contains only alphabets.
+c) If student_name is valid, accept fee_amount paud by the student
+	* Decimal point is optional in fee_amount.
+	* Only 2 digits are allowed after decimal point.
+d) If invalid data is entered in any of the above steps,display appropriate error messages. Else create an email_id for student as student_name@ABC.com. Where ABC is the name of the college. Assume there are no duplicate names.
+e) Perform above validation using regular expression and print details of students: student_id,student_name,fee_amount,amount,email_id.	
+
+import re
+def student_ms():
+	try:
+		sid=input("Enter student is:")
+		if not re.fullmatch(r'\d+',sid):
+			print("Student id must contain only alphabets")
+			return
+		sname="Enter student name:"
+		if not re.fullmatch(r'[a-z z-a]+',sname):
+			print("Student name must contain only alphabets.")
+			return
+		fees=input("Enter fee amount upto 2 decimal place:")
+		if not re.fullmatch(r'\d+(\.\d{1,2})?',fees):
+			print("Fees must be valid number upto 2 decimal place:")
+			return
+		collegename="aloysius"
+		emailid="{sname.replace('',").lower()}@{collegename}.ac.in"
+		print(f"Student id:{sid}")
+		print(f"Student name:{sname}")
+		print(f"Student fees:{fees}")
+		print(s"Student email:{emailid}")
+	except Exception as e:
+		print(f"An error occured:{e}")
+
+student_ms()
+-------------------------------------------------------------------------------
