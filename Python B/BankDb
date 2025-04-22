@@ -1,0 +1,71 @@
+-------------------------------------------------------------------------
+26.Write a python program to create a Bank Application. Use all the properties needed to complete the application. Ask on request from the user what information they need to check. Last five transactions has to be kept in DB. User can retrieve the data lika account details, personal details, last five transactions,etc.
+
+import sqlite3
+class BankAccount:
+    def __init__(self,db="bank.db"):
+        self.conn=sqlite3.connect(db)
+        cursor=self.conn.cursor()
+        cursor.execute("DROP TABLE IF EXISTS accounts")
+        self.conn.execute("CREATE TABLE accounts(accno INTEGER PRIMARY KEY,name TEXT,balance REAL,address TEXT,phone TEXT);")
+        cursor.execute("DROP TABLE IF EXISTS transactions")
+        self.conn.execute("CREATE TABLE transactions(id INTEGER PRIMARY KEY AUTOINCREMENT,accno INTEGER,details TEXT);")
+        def execute(self,query,params=(),fetch=False):
+            cursor=self.conn.cursor()
+            if params:
+                cursor.execute(query,params)
+            else:
+                cursor.execute(query)
+            self.conn.commit()
+            if fetch:
+                return cursor.fetchall()
+            def create_account(self,accno,name,balance,address,phone):
+                self.execute("INSERT INTO accounts VALUES(?,?,?,?,?)",(accno,name,balance,address,phone))
+                print("Account Created")
+            def deposite(self,accno,amount):
+                self.execute("UPDATE accounts SET balance=balance+? WHERE accno=?",(amount,accno))
+                self.execute("INSERT INTO transactions(accno,details)VALUES(?,?)",(accno,f"Deposited:{amount}"))
+                print("Amount Credited")
+            def withdraw(self,accno,amount):
+                balance=self.execute("SELECT balance FROM accounts WHERE accno=?",(accno),True)[0][0]
+                if balance>=amount:
+                    self.execute("UPDATE accounts SET balance=balance-? WHERE accno=?",(amount,accno))
+                    self.execute("INSERT INTO transactions(accno,details)VALUES(?,?)",(accno,f"Withdraw:{amount}"))
+                    print("Amount Debited")
+                else:
+                    print("Insufficient Balance")
+            def show_details(self,accno,personal=False):
+                query="SELECT*FROM accounts WHERE accno=?"if not personal else"SELECT name,addess,phone FROM accounts WHERE accno=?"
+                row=self.execute(query,(accno,),True)
+                for r in row:
+                    print(row)
+            def show_transactions(self,accno):
+                transactions=self.execute("SELECT details FROM transactions WHERE accno=? ORDER BY id DESC LIMIT 5",(accno),True)
+                for t in transactions:
+                    print(t[0])
+            def close(self):
+                self.conn.close()
+                
+        def main():
+            bank=BankAccount()
+            while True:
+                print("\n1.Create Account\n2.Deposite\n3.Withdraw\n4.Account Details\n5.Personal Details\n6.Transactions\n7.Exit")
+                ch=int(input("Enter your choice:"))
+                if ch==1:
+                    bank.create_account(int(input("Accno:")),input("Name:"),float(input("Balance:")),input("Address:"),input("Phone:"))
+                elif ch==2:
+                    bank.deposite(int(input("Accno:")),float(input("Amount:")))
+                elif ch==3:
+                    bank.withdraw(int(input("Accno:")),float(input("Amount:")))
+                elif ch==4:
+                    bank.show_details(int(input("Accno:")))
+                elif ch==5:
+                    bank.show_details(int(input("Accno:")),personal=True)
+                elif ch==6:
+                    bank.show_transactions(int(input("Accno:")))
+                elif ch==7:
+                    bank.close()
+                    break
+        if __name__=="__main__":
+            main()
+------------------------------------------------------------------------
