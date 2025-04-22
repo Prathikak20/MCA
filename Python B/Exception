@@ -1,0 +1,25 @@
+27. Write a python program to demonstrate the concept of built in Exception and User defined Exception.
+
+class zeroDivisionError(Exception):
+	pass
+def divide_num(num1,num2):
+	if(num2==0):
+		raise zeroDivisionError("Cannot be divided by 0")
+	else:
+		return num1/num2
+try:
+	result=divide_num(10,2)
+	print(f"Result:{result}")
+except zeroDivisionError as e:
+	print(e)
+	
+try:
+	result=divide_num(10,2)
+	print(f"Result:{result}")
+except zeroDivisionError as e:
+	print(e)
+	
+OUTPUT:
+Result:5.0
+Cannot be divided by 0
+-------------------------------------------------------------------------------------
