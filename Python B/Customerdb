@@ -1,0 +1,40 @@
+25.Write a python program to add few customer details into the database and retrieve the information and print it in systematic manner.
+
+import sqlite3
+
+def create_table():
+    conn=sqlite3.connect('customers.db')
+    cursor=conn.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS customers
+                    (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                     name TEXT,email TEXT,phone TEXT)''')
+    conn.commit()
+    conn.close()
+    
+def add_customer(name,email,phone):
+    conn=sqlite3.connect('customers.db')
+    cursor=conn.cursor()
+    cursor.execute("INSERT INTO customers(name,email,phone)VALUES(?,?,?)",(name,email,phone))
+    conn.commit()
+    conn.close()
+
+def retrieve_customer():
+    conn=sqlite3.connect('customers.db')
+    cursor=conn.cursor()
+    cursor.execute("SELECT*FROM customers")
+    customers=cursor.fetchall()
+    conn.close()
+    return customers
+    
+create_table()
+
+add_customer("Alice","alice@gamal.com","457877788")
+add_customer("Raj","raj@exam.com","7800954323")
+
+customers=retrieve_customer()
+for customer in customers:
+    print(f"ID:{customer[0]},Name:{customer[1]},Email:{customer[2]},Phone:{customer[3]}")
+	
+OUTPUT:
+ID:1,Name:Alice,Email:alice@gamal.com,Phone:457877788
+ID:2,Name:Raj,Email:raj@exam.com,Phone:7800954323
